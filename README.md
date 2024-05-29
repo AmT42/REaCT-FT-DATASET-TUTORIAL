@@ -4,6 +4,8 @@ This project was developed for a hackathon at Station F in Paris, hosted by Mist
 
 Once the fine-tuning dataset is created, refer to the [Mistral fine-tuning GitHub repository](https://github.com/mistralai/mistral-finetune). It is self-explanatory on how to fine-tune Mistral on the created dataset. Make sure to download the Mistral-7b-Instruct-v0.3 version to make it work.
 
+Please note, this was a 20-hour hackathon project, so there might be some errors and certainly room for improvement.
+
 ## 👩‍💻 Installation
 
 ```
