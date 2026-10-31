@@ -1,24 +1,20 @@
 # REaCT fine-tuning dataset for Mistral-7B-Instruct-v0.3
 
-Finalist project, Mistral × Cerebral Valley hackathon, Station F, Paris, May 2024, team of three. I adapted the chemistry agent [ChemCrow](https://github.com/ur-whitelab/chemcrow-public) for Mistral and built a synthetic chemistry dataset using GPT-4/GPT-4o, filtered by a GPT-4 reviewer, for fine-tuning Mistral-7B-Instruct-v0.3. The goal: an open model instead of GPT-4, because pharma clients are cautious with closed APIs.
+Finalist project, Mistral × Cerebral Valley hackathon, Station F, Paris, May 2024. I adapted the chemistry agent [ChemCrow](https://github.com/ur-whitelab/chemcrow-public) for Mistral and built a synthetic chemistry dataset using GPT-4/GPT-4o, filtered by a GPT-4 reviewer, for fine-tuning Mistral-7B-Instruct-v0.3.
 
-**Write-up:** [Create REaCT Fine-Tuning Dataset for Mistral-7b-Instruct-v0.3 with LangChain, GPT-4, and Self-Reflection](https://medium.com/@ahmet_celebi/create-react-fine-tuning-dataset-for-mistral-7b-instruct-v0-3-d6556bab7c56) (30 May 2024).
+**Write-up:** [Create REaCT Fine-Tuning Dataset for Mistral-7b-Instruct-v0.3](https://medium.com/@ahmet_celebi/create-react-fine-tuning-dataset-for-mistral-7b-instruct-v0-3-d6556bab7c56) (30 May 2024).
 
 ## How it works
 
-1. `chemcrow/agents/mistral.py` wraps Mistral-7B-Instruct-v0.3 as a LangChain LLM, so ChemCrow can use it in place of GPT-4.
-2. In `Tutorial_create_intruct_dataset.ipynb`, GPT-4 writes chemistry questions for the selected ChemCrow tools (`all_tools[4:]`).
-3. ChemCrow on GPT-4o answers each question with REaCT steps (thought, action, observation).
-4. A GPT-4 reviewer checks each answer: reasoning, final answer, tool choice and question quality. One "no" drops it.
-5. The loop runs up to 20 times per tool. The kept examples are the dataset for [mistral-finetune](https://github.com/mistralai/mistral-finetune).
+1. `chemcrow/agents/mistral.py` lets ChemCrow use Mistral-7B-Instruct-v0.3 in place of GPT-4.
+2. GPT-4 writes chemistry questions for ChemCrow's tools.
+3. ChemCrow on GPT-4o answers them with REaCT steps (thought, action, observation).
+4. A GPT-4 reviewer keeps only the correct answers.
+5. The kept examples train Mistral with [mistral-finetune](https://github.com/mistralai/mistral-finetune).
 
-I trained the model with LoRA during the hackathon. I could not load the LoRA weights before the deadline, so the demo did not use the fine-tuned model. The repo and the article report no benchmark numbers.
+## Credits
 
-## Status and credits
-
-This is the tutorial version of the notebook, and it has known errors. `create_dataset` returns two values, but the loop unpacks three (cell line 636). The formatting step keeps only the first tool step of each trace (line 488). It pins `openai==0.27.8` and needs an OpenAI key.
-
-The `chemcrow/` package is ChemCrow by Andres M. Bran, Sam Cox, Andrew White and Philippe Schwaller (MIT licence, White Laboratory, see `LICENSE`). This repo adds the Mistral adapter and the dataset notebook. Teammates: Clément Castelon (Mol-Instructions fine-tune and serving) and Phil Rohr (frontend and infrastructure). Commits in this repo: Clemspace.
+`chemcrow/` is ChemCrow by Bran, Cox, White and Schwaller (MIT, White Laboratory). Team: Clément Castelon and Phil Rohr. Tutorial code from 2024.
 
 <details>
 <summary>Original README</summary>
