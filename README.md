@@ -9,7 +9,7 @@ Finalist project, Mistral × Cerebral Valley hackathon, Station F, Paris, May 20
 1. `chemcrow/agents/mistral.py` lets ChemCrow use Mistral-7B-Instruct-v0.3 in place of GPT-4.
 2. GPT-4 writes chemistry questions for ChemCrow's tools.
 3. ChemCrow on GPT-4o answers them with REaCT steps (thought, action, observation).
-4. A GPT-4 reviewer keeps only the correct answers.
+4. A GPT-4 reviewer keeps the examples it accepts.
 5. The kept examples train Mistral with [mistral-finetune](https://github.com/mistralai/mistral-finetune).
 
 ## Credits
